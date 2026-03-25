@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maze Escape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="maze-rickroll.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel intro-panel">
+      <p class="eyebrow">No ads. Local file playback.</p>
+      <h1>Escape The Maze</h1>
+      <p class="lede">
+        Use arrow keys or WASD to reach the glowing exit. The moment you escape, the page swaps to a direct-file video player.
+      </p>
+      <div class="status-row">
+        <div class="status-chip">
+          <span class="label">Controls</span>
+          <strong>WASD / Arrows</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-layout">
+      <article class="panel maze-panel">
+        <div class="maze-header">
+          <div>
+            <p class="eyebrow">Maze</p>
+            <h2>Find The Exit</h2>
+          </div>
+          <button id="restart-button" type="button">New Maze</button>
+        </div>
+        <div id="maze" class="maze" aria-label="Maze board">
+          <div class="maze-token maze-exit" id="maze-exit" aria-hidden="true"></div>
+          <div class="maze-token maze-player" id="maze-player" aria-hidden="true"></div>
+        </div>
+      </article>
+
+      <article class="panel help-panel">
+        <p class="eyebrow">Rules</p>
+        <h2>How It Works</h2>
+        <p class="helper-copy">
+          White squares are paths. Dark blocks are walls. The cyan square is you, and the gold square is the exit.
+        </p>
+        <p class="helper-copy">
+          This version is web-upload ready. Put the video file in the same folder as this page and it will play with no ads and no external embed.
+        </p>
+        <p class="helper-copy" id="video-warning">
+          Upload <code>rickroll.mp4</code> alongside this page so it can play after you escape.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <section class="rickroll-overlay" id="rickroll-overlay" hidden>
+    <div class="overlay-card">
+      <p class="eyebrow">You escaped.</p>
+      <h2>You absolutely should have seen this coming.</h2>
+      <video id="rickroll-player" controls autoplay playsinline>
+        <source src="rickroll.mp4" type="video/mp4">
+        Your browser could not load the direct video file.
+      </video>
+      <div class="overlay-actions">
+        <button id="play-again-button" type="button">Play Again</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="maze-rickroll.js"></script>
+</body>
+</html>

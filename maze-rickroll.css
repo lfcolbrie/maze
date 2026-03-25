@@ -1,0 +1,261 @@
+:root {
+  --bg: #0a0f16;
+  --panel: rgba(15, 22, 31, 0.92);
+  --line: rgba(154, 190, 217, 0.18);
+  --text: #eef4fa;
+  --muted: #93a8bb;
+  --path: #ecf4fb;
+  --wall: #16202a;
+  --player: #55e6ff;
+  --exit: #ffcf5a;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+  --cell-size: 28px;
+  --cell-gap: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Outfit", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(85, 230, 255, 0.12), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(255, 207, 90, 0.12), transparent 22%),
+    linear-gradient(180deg, #121b25 0%, var(--bg) 100%);
+}
+
+.app-shell {
+  width: min(1100px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 24px 0 32px;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.intro-panel,
+.maze-panel,
+.help-panel {
+  padding: 22px;
+}
+
+.eyebrow,
+.label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+h1,
+h2,
+button {
+  font-family: "Press Start 2P", cursive;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.lede,
+.helper-copy {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.status-row,
+.game-layout,
+.maze-header,
+.overlay-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.status-row {
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.status-chip {
+  flex: 1 1 180px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.status-chip strong {
+  display: block;
+}
+
+.game-layout {
+  margin-top: 18px;
+  align-items: start;
+}
+
+.maze-panel {
+  flex: 1.1;
+}
+
+.help-panel {
+  flex: 0.8;
+}
+
+.maze-header {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+}
+
+
+.maze {
+  position: relative;
+  display: grid;
+  gap: var(--cell-gap);
+  padding: 12px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top, rgba(85, 230, 255, 0.08), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--line);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: 4px;
+  transition: background 100ms ease, transform 100ms ease, box-shadow 100ms ease, opacity 100ms ease;
+}
+
+.wall {
+  background:
+    linear-gradient(180deg, #223141, #131d27);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.path {
+  background:
+    linear-gradient(180deg, rgba(236, 244, 251, 0.07), rgba(236, 244, 251, 0.03));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  opacity: 1;
+}
+
+.maze-token {
+  position: absolute;
+  width: calc(var(--cell-size) - 12px);
+  height: calc(var(--cell-size) - 12px);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(var(--token-x, 0), var(--token-y, 0));
+  transition: transform 90ms linear;
+}
+
+.maze-player {
+  background: radial-gradient(circle at 35% 35%, #dffaff, var(--player) 58%, #12829f 100%);
+  box-shadow: 0 0 18px rgba(85, 230, 255, 0.55);
+  z-index: 2;
+}
+
+.maze-exit {
+  background: radial-gradient(circle at 35% 35%, #fff8d9, var(--exit) 58%, #d89e19 100%);
+  box-shadow: 0 0 18px rgba(255, 207, 90, 0.48);
+  z-index: 1;
+}
+
+.rickroll-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 7, 10, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.rickroll-overlay[hidden] {
+  display: none !important;
+}
+
+.overlay-card {
+  width: min(900px, 100%);
+  padding: 22px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: rgba(12, 18, 26, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.overlay-card video {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #000;
+}
+
+.overlay-actions {
+  margin-top: 16px;
+}
+
+code {
+  font-family: monospace;
+}
+
+@media (max-width: 900px) {
+  .game-layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --cell-size: 22px;
+  }
+
+  .app-shell {
+    width: min(100% - 18px, 1100px);
+    padding-top: 16px;
+  }
+
+  .intro-panel,
+  .maze-panel,
+  .help-panel,
+  .overlay-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .maze-header,
+  .overlay-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
